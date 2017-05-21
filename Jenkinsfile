@@ -27,7 +27,9 @@ node {
 
     stage('Call packer job') {
         echo 'Calling packer job...'
-        def packageDir = findFiles(glob: '**/*.deb')
-        echo """${packageDir[0].directory}"""
+        //def packageDir = findFiles(glob: '**/*.deb')
+        //echo """${packageDir[0].directory}"""
+        def files = findFiles(glob: '*.*')
+        echo files
     }
 }
