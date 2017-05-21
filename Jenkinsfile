@@ -30,6 +30,6 @@ node {
         //def packageDir = findFiles(glob: '**/*.deb')
         //echo """${packageDir[0].directory}"""
         def files = findFiles(glob: '*.*')
-        echo files
+        echo """${files[0].directory}"""
     }
 }
