@@ -11,7 +11,7 @@ node {
         checkout scm
     }
 
-    stage('Build') {
+    stage('Install dependencies') {
         echo 'Building dependencies...'
         sh 'npm i'
     }
@@ -19,5 +19,10 @@ node {
     stage('Test') {
         echo 'Testing...'
         sh 'npm test'
+    }
+
+    stage('Build bundle') {
+        echo 'Building bundle...'
+        sh 'npm run webpack'
     }
 }

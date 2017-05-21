@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test CONFIG_FILE=./test/fixture.yml mocha --timeout 5000",
-    "perf": "node perf/index.js"
+    "perf": "node perf/index.js",
+    "webpack": "webpack"
   },
   "bin": {
     "limitd": "./bin/limitd"
@@ -47,6 +48,7 @@
     "mockdate": "~1.0.4",
     "moment": "~2.12.0",
     "progress": "~1.1.8",
-    "rimraf": "~2.2.8"
+    "rimraf": "~2.2.8",
+    "webpack": "^2.5.1"
   }
 }
