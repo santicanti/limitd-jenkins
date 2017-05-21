@@ -29,16 +29,18 @@ node {
         echo 'Calling packer job...'
         //def packageDir = findFiles(glob: '**/*.deb')
         //echo """${packageDir[0].directory}"""
-        def files = findFiles(glob: '*.deb')
-        echo pwd + """/${files[0].path}        ${files[0].name}"""
-        sh 'rm *.deb'
-        sh 'pwd'
+        //def files = findFiles(glob: '*.deb')
+        //echo pwd + """/${files[0].path}        ${files[0].name}"""
+        //sh 'rm *.deb'
+        //sh 'pwd'
 
-        PACKAGEDIR = sh(
-          script: 'pwd',
-          returnStdout:true
-        ).trim() + '/' + ${files[0].name}
+        //PACKAGEDIR = sh(
+          //script: 'pwd',
+          //returnStdout:true
+        //).trim() + '/' + ${files[0].name}
 
-        echo "${PACKAGEDIR}"
+        //echo "${PACKAGEDIR}"
+
+        build job: create-ami
     }
 }
