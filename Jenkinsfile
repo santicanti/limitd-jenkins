@@ -23,6 +23,6 @@ node {
 
     stage('Build bundle') {
         echo 'Building bundle...'
-        sh 'npm run webpack'
+        sh 'npm run build-bundle'
     }
 }
