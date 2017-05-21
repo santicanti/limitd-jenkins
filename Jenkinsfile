@@ -33,5 +33,12 @@ node {
         echo pwd + """/${files[0].path}        ${files[0].name}"""
         sh 'rm *.deb'
         sh 'pwd'
+
+        PACKAGEDIR = sh(
+          script: 'pwd',
+          returnStdout:true
+        ).trim() + '/' + ${files[0].name}
+
+        echo "${PACKAGEDIR}"
     }
 }
