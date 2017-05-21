@@ -22,6 +22,6 @@ node {
 
     stage('Create bundle') {
         echo 'Creating bundle...'
-        sh 'npm run create-bundle -- VERSION_NUMBER=' + currentBuild.number + ' WORKSPACE=..'
+        sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
     }
 }
