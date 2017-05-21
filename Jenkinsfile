@@ -7,12 +7,11 @@ node {
 
     stage('Checkout') {
         echo 'Getting source code...'
-        //git url: 'https://github.com/limitd/limitd'
         checkout scm
     }
 
     stage('Install dependencies') {
-        echo 'Building dependencies...'
+        echo 'Installing dependencies...'
         sh 'npm i'
     }
 
@@ -21,8 +20,8 @@ node {
         sh 'npm test'
     }
 
-    stage('Build bundle') {
-        echo 'Building bundle...'
-        sh 'npm run build-bundle'
+    stage('Create bundle') {
+        echo 'Creating bundle...'
+        sh 'npm run create-bundle -- VERSION_NUMBER=' + currentBuild.number + ' WORKSPACE=..'
     }
 }
