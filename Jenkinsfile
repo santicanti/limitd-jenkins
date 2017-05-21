@@ -32,7 +32,6 @@ node {
         def files = findFiles(glob: '*.deb')
         echo pwd + """/${files[0].path}        ${files[0].name}"""
         sh 'rm *.deb'
-        sh 'ls'
-        sh 'echo pwd'
+        sh 'pwd'
     }
 }
