@@ -24,4 +24,10 @@ node {
         echo 'Creating bundle...'
         sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
     }
+
+    stage('Call packer job') {
+        echo 'Calling packer job...'
+        def packageDir = findFiles(glob: '**/*.deb') echo """${files[0].directory}"""
+        echo packageDir
+    }
 }
