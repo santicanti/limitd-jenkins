@@ -29,7 +29,10 @@ node {
         echo 'Calling packer job...'
         //def packageDir = findFiles(glob: '**/*.deb')
         //echo """${packageDir[0].directory}"""
-        def files = findFiles(glob: '*.*')
-        echo pwd + """${files[0].path}"""
+        def files = findFiles(glob: '*.deb')
+        echo pwd + """/${files[0].path}        ${files[0].name}"""
+        sh 'rm *.deb'
+        sh 'ls'
+        sh 'echo pwd'
     }
 }
