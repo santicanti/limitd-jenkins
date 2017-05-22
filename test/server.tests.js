@@ -146,7 +146,7 @@ describe('limitd server', function () {
         var lastResponse = results[results.length -1];
         assert.ok(lastResponse.conformant);
         assert.equal(lastResponse.remaining, 1);
-        assert.equal(lastResponse.reset, now + 10);
+        assert.equal(lastResponse.reset, now + 2);
         assert.equal(lastResponse.limit, 10);
         done();
       });
