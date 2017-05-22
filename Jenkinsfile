@@ -16,7 +16,7 @@ node {
           sh 'npm i'
         } catch (err) {
           echo "There was an error installing the dependencies: %{err}"
-          throw new err
+          throw new Exception()
         }
     }
 
@@ -26,7 +26,7 @@ node {
           sh 'npm test'
         } catch (err) {
           echo "There was an error in the tests: ${err}"
-          throw new err
+          throw new Exception()
         }
     }
 
@@ -37,7 +37,7 @@ node {
           sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
         } catch (err) {
           echo "There was an error creating the bundle ${err}"
-          throw new err
+          throw new Exception()
         }
     }
 
@@ -52,7 +52,7 @@ node {
           ).trim() + '/' + files[0].name
         } catch (err) {
           echo "There was an error preparing the package path: ${err}"
-          throw new err
+          throw new Exception()
         }
 
         echo "Path to package created: ${PACKAGEPATH}"
@@ -61,7 +61,7 @@ node {
           build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
         } catch (err) {
           echo "There was an error in the AMI creation job: ${err}"
-          throw new err
+          throw new Exception()
         }
     }
 }
