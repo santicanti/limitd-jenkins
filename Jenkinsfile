@@ -12,31 +12,56 @@ node {
 
     stage('Install dependencies') {
         echo 'Installing dependencies...'
-        sh 'npm i'
+        try {
+          sh 'npm i'
+        } catch (err) {
+          echo "There was an error installing the dependencies: %{err}"
+          throw new err
+        }
     }
 
     stage('Test') {
         echo 'Testing...'
-        sh 'npm test'
+        try {
+          sh 'npm test'
+        } catch (err) {
+          echo "There was an error in the tests: ${err}"
+          throw new err
+        }
     }
 
     stage('Create bundle') {
+        echo 'Deleting old bundles and creating new one...'
         sh 'rm *.deb'
-        echo 'Creating bundle...'
-        sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
+        try {
+          sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
+        } catch (err) {
+          echo "There was an error creating the bundle ${err}"
+          throw new err
+        }
     }
 
     stage('Call packer job') {
         echo 'Calling packer job...'
-        def files = findFiles(glob: '*.deb')
+        try {
+          def files = findFiles(glob: '*.deb')
 
-        PACKAGEPATH = sh(
+          PACKAGEPATH = sh(
           script: 'pwd',
           returnStdout:true
-        ).trim() + '/' + files[0].name
+          ).trim() + '/' + files[0].name
+        } catch (err) {
+          echo "There was an error preparing the package path: ${err}"
+          throw new err
+        }
 
         echo "Path to package created: ${PACKAGEPATH}"
 
-        build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
+        try {
+          build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
+        } catch (err) {
+          echo "There was an error in the AMI creation job: ${err}"
+          throw new err
+        }
     }
 }
