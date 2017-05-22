@@ -37,7 +37,7 @@ node {
         PACKAGEDIR = sh(
           script: 'pwd',
           returnStdout:true
-        ).trim() + '/' + ${files[0].name}
+        ).trim() + '/' + files[0].name
 
         echo "${PACKAGEDIR}"
 
