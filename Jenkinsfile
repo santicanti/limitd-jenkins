@@ -25,8 +25,8 @@ node {
         try {
           sh 'npm test'
         } catch (err) {
-          echo "There was an error in the tests: ${err}"
-          throw new Exception()
+          error("There was an error in the tests see above for more details")
+          //throw new Exception()
         }
     }
 
