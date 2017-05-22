@@ -37,7 +37,7 @@ node {
         def newestFile = 0
 
         for (i=1; i < files.length; i++) {
-          if (files[i].lastModified > files[newestFile]) {
+          if (files[i].lastModified > files[newestFile].lastModified) {
             newestFile = i
           }
         }
