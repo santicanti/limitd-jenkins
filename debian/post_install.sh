@@ -33,7 +33,7 @@ fi
 rm $file_default.postinst $file_init.postinst 2> /dev/null || true
 
 # Copy logrotate script
-cp /opt/auth0/$NAME/debian/$NAME-logs /etc/logrotate.d/
+cp '/opt/auth0/'$NAME'/debian/'$NAME'-logs' '/etc/logrotate.d/'
 
 # Create database dir and deploy example config file
 mkdir -p /var/limitd/database
