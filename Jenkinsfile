@@ -34,13 +34,18 @@ node {
         //sh 'rm *.deb'
         //sh 'pwd'
 
-        PACKAGEDIR = sh(
+        //PACKAGEDIR = sh(
+        //  script: 'pwd',
+        //  returnStdout:true
+        //).trim() + '/' + files[0].name
+
+        //echo "${PACKAGEDIR}"
+
+        PACKAGEDIRECTORY = sh(
           script: 'pwd',
           returnStdout:true
-        ).trim() + '/' + files[0].name
+        ).trim()
 
-        echo "${PACKAGEDIR}"
-
-        //build job: 'create-ami'
+        build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_DIR', value: PACKAGEDIRECTORY]]
     }
 }
