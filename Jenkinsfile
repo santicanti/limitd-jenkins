@@ -21,39 +21,22 @@ node {
     }
 
     stage('Create bundle') {
+        sh 'rm *.deb'
         echo 'Creating bundle...'
         sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
     }
 
     stage('Call packer job') {
         echo 'Calling packer job...'
-        //def packageDir = findFiles(glob: '**/*.deb')
-        //echo """${packageDir[0].directory}"""
         def files = findFiles(glob: '*.deb')
-        //echo pwd + """/${files[0].path}        ${files[0].name}"""
-        //sh 'rm *.deb'
-        //sh 'pwd'
 
-        def newestFile = 0
-
-        for (i=1; i < files.length; i++) {
-          if (files[i].lastModified > files[newestFile].lastModified) {
-            newestFile = i
-          }
-        }
-
-        PACKAGEDIR = sh(
+        PACKAGEPATH = sh(
           script: 'pwd',
           returnStdout:true
-        ).trim() + '/' + files[newestFile].name
+        ).trim() + '/' + files[0].name
 
-        echo "${PACKAGEDIR}"
+        echo "Path to package created: ${PACKAGEPATH}"
 
-        PACKAGEDIRECTORY = sh(
-          script: 'pwd',
-          returnStdout:true
-        ).trim()
-
-        build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_DIR', value: PACKAGEDIRECTORY]]
+        build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
     }
 }
