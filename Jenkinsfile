@@ -34,12 +34,20 @@ node {
         //sh 'rm *.deb'
         //sh 'pwd'
 
-        //PACKAGEDIR = sh(
-        //  script: 'pwd',
-        //  returnStdout:true
-        //).trim() + '/' + files[0].name
+        def newestFile = 0
 
-        //echo "${PACKAGEDIR}"
+        for (i=1; i < files.length; i++) {
+          if (files[i].lastModified > files[newestFile]) {
+            newestFile = i
+          }
+        }
+
+        PACKAGEDIR = sh(
+          script: 'pwd',
+          returnStdout:true
+        ).trim() + '/' + files[newestFile].name
+
+        echo "${PACKAGEDIR}"
 
         PACKAGEDIRECTORY = sh(
           script: 'pwd',
