@@ -10,7 +10,7 @@
   "scripts": {
     "test": "NODE_ENV=test CONFIG_FILE=./test/fixture.yml mocha --timeout 5000",
     "perf": "node perf/index.js",
-    "create-bundle": "make"
+    "create-package": "make"
   },
   "bin": {
     "limitd": "./bin/limitd"

@@ -28,13 +28,13 @@ node {
         }
     }
 
-    stage('Create bundle') {
-        echo 'Deleting old bundles and creating new one...'
+    stage('Create package') {
+        echo 'Deleting old packages and creating new one...'
         sh 'rm -f *.deb'
         try {
-          sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=.'
+          sh 'npm run create-package -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=.'
         } catch (err) {
-          error("There was an error creating the bundle ${err}")
+          error("There was an error creating the package: ${err}")
         }
     }
 
