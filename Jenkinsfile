@@ -10,6 +10,8 @@ node {
         sh 'cd limitd'
         echo 'Getting source code...'
         checkout scm
+        sh 'ls'
+        sh 'ls ../'
     }
 
     stage('Install dependencies') {
