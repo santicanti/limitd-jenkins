@@ -8,6 +8,10 @@ node {
     stage('Checkout') {
         echo 'Getting source code...'
         checkout scm
+        echo 'ls '
+        sh 'ls'
+        echo 'ls ../'
+        sh 'ls ../'
     }
 
     stage('Install dependencies') {
