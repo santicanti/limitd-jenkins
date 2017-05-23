@@ -6,10 +6,11 @@ node {
     }
 
     stage('Checkout') {
-        sh 'mkdir -p limitd'
-        sh 'cd limitd'
         echo 'Getting source code...'
         checkout scm
+        sh 'mkdir -p limitd'
+        sh 'mv ./* limitd/'
+        sh 'cd limitd'
         sh 'ls'
         sh 'ls ../'
     }
