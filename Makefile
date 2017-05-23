@@ -26,7 +26,7 @@ build_deb: check-fpm-installed check-version-variable check-deb-variables
 	-d auth0-node-v$(NODE_VERSION)-linux-x64 \
 	-x '**/.git*' -x '*.tgz' -x '**/test/*' \
 	--description 'Jenkins build $(VERSION_NUMBER) - git commit $(GIT_BRANCH)-$(GIT_COMMIT)' \
-	-t deb -s dir limitd-jenkins
+	-t deb -s dir limitd
 
 	git checkout .
 

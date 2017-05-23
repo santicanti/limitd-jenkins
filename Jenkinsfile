@@ -6,12 +6,10 @@ node {
     }
 
     stage('Checkout') {
+        sh 'mkdir -p limitd'
+        sh 'cd limitd'
         echo 'Getting source code...'
         checkout scm
-        echo 'ls '
-        sh 'ls'
-        echo 'ls ../'
-        sh 'ls ../'
     }
 
     stage('Install dependencies') {
