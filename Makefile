@@ -21,7 +21,7 @@ build_deb: check-fpm-installed check-version-variable check-deb-variables
 	fpm -C $(WORKSPACE) --deb-user limitd --deb-group limitd \
 	--before-install debian/pre_install.sh --after-install debian/post_install.sh \
 	--before-remove debian/pre_rm.sh \
-	--prefix /opt/auth0 --deb-upstart debian/limitd --deb-default debian/limitd_defaults \
+	--prefix /opt/auth0/limitd --deb-upstart debian/limitd --deb-default debian/limitd_defaults \
 	--url ' $(GIT_URL)' --version $(VERSION_NUMBER) -n limitd \
 	-d auth0-node-v$(NODE_VERSION)-linux-x64 \
 	-x '**/.git*' -x '*.tgz' -x '**/test/*' \
