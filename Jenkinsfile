@@ -8,11 +8,6 @@ node {
     stage('Checkout') {
         echo 'Getting source code...'
         checkout scm
-        sh 'mkdir -p limitd'
-        sh 'find . -mindepth 1 -not -name limitd -print0 |      xargs -0 mv -t ./limitd'
-        sh 'cd limitd'
-        sh 'ls'
-        sh 'ls ../'
     }
 
     stage('Install dependencies') {
@@ -35,7 +30,12 @@ node {
 
     stage('Create bundle') {
         echo 'Deleting old bundles and creating new one...'
-        sh 'rm -f *.deb'
+        sh 'rm -rf limitd/'
+
+        sh 'mkdir -p limitd'
+        sh 'find . -mindepth 1 -not -name limitd -print0 |      xargs -0 mv -t ./limitd'
+        sh 'cd limitd'
+
         try {
           sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
         } catch (err) {
