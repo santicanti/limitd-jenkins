@@ -26,7 +26,7 @@ build_deb: check-fpm-installed check-version-variable check-deb-variables
 	-d auth0-node-v$(NODE_VERSION)-linux-x64 \
 	-x '**/.git*' -x '*.tgz' -x '**/test/*' \
 	--description 'Jenkins build $(VERSION_NUMBER) - git commit $(GIT_BRANCH)-$(GIT_COMMIT)' \
-	-t deb -s dir limitd 
+	-t deb -s dir limitd-jenkins
 
 	git checkout .
 
@@ -45,4 +45,3 @@ check-fpm-installed:
 	@command -v fpm >/dev/null 2>&1 || { echo >&2 "fpm required to build DEBs but not installed"; \
 	echo >&2 "Install with: \n $ sudo apt-get install ruby-dev gcc && sudo gem install fpm"; \
 	echo >&2 "Aborting"; exit 1; }
-
