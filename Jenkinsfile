@@ -32,7 +32,7 @@ node {
 
     stage('Create bundle') {
         echo 'Deleting old bundles and creating new one...'
-        sh 'rm *.deb'
+        sh 'rm -f *.deb'
         try {
           sh 'npm run create-bundle -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=..'
         } catch (err) {
