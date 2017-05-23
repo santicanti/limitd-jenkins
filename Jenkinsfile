@@ -9,7 +9,7 @@ node {
         echo 'Getting source code...'
         checkout scm
         sh 'mkdir -p limitd'
-        sh 'mv ./!limitd limitd/'
+        sh 'mv !limitd limitd/'
         sh 'cd limitd'
         sh 'ls'
         sh 'ls ../'
