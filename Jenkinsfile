@@ -47,6 +47,7 @@ node {
           script: 'pwd',
           returnStdout:true
           ).trim() + '/' + files[0].name
+          echo "packate path: $PACKAGEPATH"
         } catch (err) {
           echo "There was an error preparing the package path: ${err}"
           throw new Exception()
