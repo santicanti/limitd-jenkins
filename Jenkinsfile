@@ -55,7 +55,7 @@ node {
         echo "Path to package created: ${PACKAGEPATH}"
 
         try {
-          build job: 'create-ami', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
+          build job: 'create-ami-pipeline', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
         } catch (err) {
           error("There was an error in the AMI creation job: ${err}")
         }
