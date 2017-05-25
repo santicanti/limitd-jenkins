@@ -37,7 +37,12 @@ node {
           echo 'Deleting old packages and creating new one...'
           sh 'rm -f *.deb'
           try {
-            sh 'npm run create-package -- VERSION_NUMBER=1.0.' + currentBuild.number + ' WORKSPACE=.'
+            def versionNumber = sh (
+              script: 'grep -Po \'\"version\": \"\\K[0-9.]*\' package.json',
+              returnStdout: true
+            ).trim()
+
+            sh 'npm run create-package -- VERSION_NUMBER=' + versionNumber + ' WORKSPACE=.'
           } catch (err) {
             error("There was an error creating the package: "  + err.getMessage())
           }
@@ -48,19 +53,20 @@ node {
           try {
             def files = findFiles(glob: '*.deb')
 
-            PACKAGEPATH = sh(
-            script: 'pwd',
-            returnStdout:true
+            def packagePath = sh(
+              script: 'pwd',
+              returnStdout:true
             ).trim() + '/' + files[0].name
-            echo "packate path: $PACKAGEPATH"
+
+            echo "packate path: $packagePath"
           } catch (err) {
             error("There was an error preparing the package path: "  + err.getMessage())
           }
 
-          echo "Path to package created: ${PACKAGEPATH}"
+          echo "Path to package created: ${packagePath}"
 
           try {
-            build job: 'create-ami-pipeline', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: PACKAGEPATH]]
+            build job: 'create-ami-pipeline', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: packagePath]]
           } catch (err) {
             error("There was an error in the AMI creation job: " + err.getMessage())
           }
