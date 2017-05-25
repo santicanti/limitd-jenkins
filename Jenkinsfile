@@ -52,10 +52,11 @@ node {
 
         stage('Call packer job') {
           echo 'Calling packer job...'
+          def packagePath
           try {
             def files = findFiles(glob: '*.deb')
 
-            def packagePath = sh(
+            packagePath = sh(
               script: 'pwd',
               returnStdout:true
             ).trim() + '/' + files[0].name
