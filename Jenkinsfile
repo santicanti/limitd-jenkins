@@ -64,6 +64,8 @@ node {
           } catch (err) {
             error("There was an error in the AMI creation job: " + err.getMessage())
           }
+
+          currentBuild.result = 'SUCCESS'
         }
     } catch (err) {
         currentBuild.result = 'FAILURE'
