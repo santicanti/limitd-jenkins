@@ -34,8 +34,7 @@ node {
         }
 
         stage('Create package') {
-          echo 'Deleting old packages and creating new one...'
-          sh 'rm -f *.deb'
+          echo 'Creating package...'
           try {
             def versionNumber = sh (
               script: 'grep -Po \'\"version\": \"\\K[0-9.]*\' package.json',
@@ -61,12 +60,11 @@ node {
               returnStdout:true
             ).trim() + '/' + files[0].name
 
-            echo "packate path: $packagePath"
           } catch (err) {
             error("There was an error preparing the package path: "  + err.getMessage())
           }
 
-          echo "Path to package created: ${packagePath}"
+          echo "Path to package created: $packagePath"
 
           try {
             build job: 'create-ami-pipeline', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: packagePath]]
