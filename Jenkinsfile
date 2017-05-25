@@ -64,7 +64,7 @@ node {
             error("There was an error preparing the package path: "  + err.getMessage())
           }
 
-          echo "Path to package created: $packagePath"
+          echo "Path to package created: " + packagePath
 
           try {
             build job: 'create-ami-pipeline', parameters: [[$class: 'StringParameterValue', name: 'PACKAGE_PATH', value: packagePath]]
