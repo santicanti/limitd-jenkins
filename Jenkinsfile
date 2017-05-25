@@ -42,6 +42,9 @@ node {
               returnStdout: true
             ).trim()
 
+            int lastNumber = versionNumber.substring(versionNumber.lastIndexOf('.') + 1).toInteger() + 1
+            versionNumber = versionNumber.take(versionNumber.lastIndexOf('.') + 1) + lastNumber
+
             sh 'npm run create-package -- VERSION_NUMBER=' + versionNumber + ' WORKSPACE=.'
           } catch (err) {
             error("There was an error creating the package: "  + err.getMessage())
