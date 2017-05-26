@@ -39,10 +39,7 @@ node {
             def versionNumber = sh (
               script: 'grep -Po \'\"version\": \"\\K[0-9.]*\' package.json',
               returnStdout: true
-            ).trim()
-
-            int lastNumber = versionNumber.substring(versionNumber.lastIndexOf('.') + 1).toInteger() + 1
-            versionNumber = versionNumber.take(versionNumber.lastIndexOf('.') + 1) + lastNumber
+            ).trim() + '-' + currentBuild.number
 
             sh 'npm run create-package -- VERSION_NUMBER=' + versionNumber + ' WORKSPACE=.'
           } catch (err) {
