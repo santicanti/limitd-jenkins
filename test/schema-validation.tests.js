@@ -49,7 +49,7 @@ describe('schema validation', function() {
       },
       log_level: 'lero'
     });
-    expect(err).to.contain('\'Invalid property "lero"\' on property log_level');
+    expect(err).to.contain('\'Invalid property "leros"\' on property log_level');
   });
 
   it('should not return an error if log_level is valid', function() {
